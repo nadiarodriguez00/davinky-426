@@ -13,9 +13,13 @@ class Flower extends Group {
             gui: parent.state.gui,
             bob: true,
             spin: this.spin.bind(this),
+            // texture: true,
             twirl: 0,
         };
-
+        var text =
+        {
+            texture: 'A'
+        }
         // Load object
         const loader = new GLTFLoader();
 
@@ -30,6 +34,7 @@ class Flower extends Group {
         // Populate GUI
         this.state.gui.add(this.state, 'bob');
         this.state.gui.add(this.state, 'spin');
+        this.state.gui.add(text, 'texture', { Default: 'A', StarryNight: 'B', Idk: 'C' } );
     }
 
     spin() {
