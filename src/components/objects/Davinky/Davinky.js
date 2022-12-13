@@ -13,13 +13,8 @@ class Davinky extends Group {
             gui: parent.state.gui,
             bob: true,
             spin: this.spin.bind(this),
-            // texture: true,
-            twirl: 0,
         };
-        var text =
-        {
-            texture: 'A'
-        }
+        
         // Load object
         const loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
