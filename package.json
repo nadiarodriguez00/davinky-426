@@ -30,10 +30,10 @@
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
-    "babel-loader": "^8.3.0",
+    "babel-loader": "^9.1.0",
     "file-loader": "^6.2.0",
-    "gh-pages": "^2.2.0",
-    "html-webpack-plugin": "^4.5.2",
+    "gh-pages": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
     "mkdirp": "^1.0.4",
     "prettier": "^2.8.1",
     "raw-loader": "^4.0.2",
