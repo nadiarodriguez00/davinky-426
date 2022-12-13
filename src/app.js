@@ -10,6 +10,9 @@ import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
 
+import *  as handlers from './js/handlers.js';
+
+
 // Initialize core ThreeJS components
 const scene = new SeedScene();
 const camera = new PerspectiveCamera();
@@ -35,12 +38,18 @@ controls.minDistance = 4;
 controls.maxDistance = 16;
 controls.update();
 
+/////////////
+const character = 'davinky';
+const keypress = {};
+
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
     controls.update();
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
+    handlers.handleCharacterControls(scene, keypress, character, camera);
+
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
@@ -53,3 +62,8 @@ const windowResizeHandler = () => {
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
+window.addEventListener('keydown', event => handlers.handleKeyDown(event, keypress), false);
+window.addEventListener('keyup', event => handlers.handleKeyUp(event, keypress), false);
+
+
+

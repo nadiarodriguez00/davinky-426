@@ -1,9 +1,9 @@
 import { Group } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
-import MODEL from './flower.gltf';
+import MODEL from './davinky.gltf';
 
-class Flower extends Group {
+class Davinky extends Group {
     constructor(parent) {
         // Call parent Group() constructor
         super();
@@ -13,24 +13,24 @@ class Flower extends Group {
             gui: parent.state.gui,
             bob: true,
             spin: this.spin.bind(this),
-            twirl: 0,
         };
+        this.name = 'davinky';
+        this.addDavinky();
+        parent.addToUpdateList(this);
+    }
 
-        // Load object
+    addDavinky() {
         const loader = new GLTFLoader();
-
-        this.name = 'flower';
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);
         });
+    }
 
-        // Add self to parent's update list
-        parent.addToUpdateList(this);
 
         // Populate GUI
-        this.state.gui.add(this.state, 'bob');
-        this.state.gui.add(this.state, 'spin');
-    }
+        //this.state.gui.add(this.state, 'bob');
+        //this.state.gui.add(this.state, 'spin');
+    
 
     spin() {
         // Add a simple twirl
@@ -69,4 +69,4 @@ class Flower extends Group {
     }
 }
 
-export default Flower;
+export default Davinky;
