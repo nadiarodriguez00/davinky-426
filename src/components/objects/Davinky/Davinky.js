@@ -13,13 +13,14 @@ class Davinky extends Group {
             gui: parent.state.gui,
             bob: true,
             spin: this.spin.bind(this),
+            // texture: true,
+            twirl: 0,
         };
-        this.name = 'davinky';
-        this.addDavinky();
-        parent.addToUpdateList(this);
-    }
-
-    addDavinky() {
+        var text =
+        {
+            texture: 'A'
+        }
+        // Load object
         const loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);
