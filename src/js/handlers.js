@@ -29,7 +29,6 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     let davinky = scene.getObjectByName(character);
     const delta = 0.1;
     if (keypress['up'] && davinky.position.y < 20) {
-        
         davinky.position.x -= delta;
         davinky.rotation.y = Math.PI;
         
@@ -61,9 +60,10 @@ export function handleCharacterControls(scene, keypress, character, camera) {
 // handle unit collisions 
 // **WE STILL NEED TO PASS IN THREEJS OBJECTS (HITBOXES) IN ORDER FOR THIS TO WORK
 // **right now davinky and enemies are undefined because they were loaded in using a gtlf loader.
-export function handleUnitCollision(scene, davinky){
+export function handleUnitCollision(scene, character){
     // First, create a new Raycaster and set its origin to the position of the unit that is moving.
     // The direction of the raycaster should be the direction that the unit is moving in.
+    let davinky = scene.getObjectByName(character);
     var direction = new THREE.Vector3();
     // davinky.getWorldDirection(direction);
     var unitRaycaster = new THREE.Raycaster(davinky.position, direction);
@@ -81,6 +81,21 @@ export function handleUnitCollision(scene, davinky){
     // Here, you can handle the collision by stopping the unit's movement, 
     // playing a sound effect, or taking any other action that you want to happen when a collision occurs.
     }
+}
+
+// Moves enemies positions towards Davinky
+export function handleEnemyMovement(scene, character){
+    let davinky = scene.getObjectByName(character);
+    let enemies = scene.enemies;
+    let enemySpeed = 0.01
+    for (var i = 0; i < enemies.length; i++) {
+        var enemy = enemies[i];
+    
+        // Move the enemy towards the player
+        var direction = new THREE.Vector3().subVectors(davinky.position, enemy.position).normalize();
+        enemy.position.add(direction.multiplyScalar(enemySpeed));
+        
+      }
 }
 
 // handle switching between screen states such as menu, game, game over, mute, and pause states

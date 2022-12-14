@@ -38,7 +38,7 @@ class SeedScene extends Scene {
 
     // used to spawn enemies
     spawnEnemies(){
-        const numEnemies = 10
+        const numEnemies = 5;
         for (let i = 0; i < numEnemies; i++) {
         const enemy = new Enemy();
         enemy.position.set(Math.random() * 15 - 5, 0, Math.random() * 15 - 5);
