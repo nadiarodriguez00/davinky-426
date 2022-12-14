@@ -35,12 +35,16 @@ class SeedScene extends Scene {
         this.state.gui.addColor(this.state, 'color');
 
     }
+
+    // used to spawn enemies
     spawnEnemies(){
-    // Create the enemy boxes, replace this with paper eventually
-        for (let i = 0; i < 5; i++) {
+        const numEnemies = 10
+        for (let i = 0; i < numEnemies; i++) {
         const enemy = new Enemy();
         enemy.position.set(Math.random() * 15 - 5, 0, Math.random() * 15 - 5);
+        // update array of enemies
         this.enemies.push(enemy);
+        // add enemy to scene
         this.add(enemy);
         }
     }
