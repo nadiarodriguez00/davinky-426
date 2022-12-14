@@ -1,7 +1,8 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Land, Davinky } from 'objects';
+import { Land, Davinky, Enemy } from 'objects';
 import { BasicLights } from 'lights';
+// import { Enemy } from '../objects/Enemy';
 
 class SeedScene extends Scene {
     constructor() {
@@ -11,24 +12,37 @@ class SeedScene extends Scene {
         // Init state
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
-            rotationSpeed: 1,
+            rotationSpeed: 0,
             color: '#00ff00',
             updateList: [],
         };
 
         // Set background to a nice color
         this.background = new Color(0x7ec0ee);
+        // stores an array of all enemy objects
+        this.enemies = []; 
 
         // Add meshes to scene
         const land = new Land();
         const davinky = new Davinky(this);
         const lights = new BasicLights();
-        this.add(land, davinky, lights);
 
+        // create enemies
+        this.spawnEnemies();
+        this.add(land, davinky, lights);
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
         this.state.gui.addColor(this.state, 'color');
 
+    }
+    spawnEnemies(){
+    // Create the enemy boxes, replace this with paper eventually
+        for (let i = 0; i < 5; i++) {
+        const enemy = new Enemy();
+        enemy.position.set(Math.random() * 15 - 5, 0, Math.random() * 15 - 5);
+        this.enemies.push(enemy);
+        this.add(enemy);
+        }
     }
 
     addToUpdateList(object) {

@@ -6,13 +6,10 @@ class Enemy extends Group {
     constructor() {
         // Call parent Group() constructor
         super();
-
-        
-        this.name = 'enemy';
+        // this.name = 'enemy';
+        this.addEnemy();
     }
-
     addEnemy() {
-        
         // Load object
         const loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {

@@ -27,21 +27,27 @@ export function handleKeyUp(event, keypress) {
 // move character and camera position in response to user controls input
 export function handleCharacterControls(scene, keypress, character, camera) {
     let davinky = scene.getObjectByName(character);
-    const delta = 0.2;
-
+    const delta = 0.1;
     if (keypress['up'] && davinky.position.y < 20) {
+        
         davinky.position.x -= delta;
+        davinky.rotation.y = Math.PI;
+        
     }
     
     if (keypress['down']) {
         davinky.position.x += delta;
+        davinky.rotation.y = 0;
     }
     
     if (keypress['right']) {
         davinky.position.z -= delta;
+        davinky.rotation.y = Math.PI / 2;
     }
     if (keypress['left']) {
         davinky.position.z += delta;
+        davinky.rotation.y = -Math.PI / 2;
+
     }
 
     // if (!plane.state.barrel) {
@@ -50,6 +56,36 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     //     camera.rotation.z = plane.state.barrel / 3;
     // }
     //camera.position.y = 2 + plane.rotation.x * 2;
+}
+
+// handle unit collisions
+export function handleUnitCollision(scene, davinky){
+    var unitRaycaster = new THREE.Raycaster(davinky.position, davinky.direction);
+    // // UNIT COLLISION //////////////////////////////////////////////////////////////////////////////
+
+// // First, create a new Raycaster and set its origin to the position of the unit that is moving.
+// // The direction of the raycaster should be the direction that the unit is moving in.
+// var unitRaycaster = new THREE.Raycaster(unit.position, unit.direction);
+
+// // Next, create an array that will hold all of the objects in the scene that the unit could potentially collide with.
+// // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
+// var potentialColliders = [];
+
+// // Add each potential collider object to the array.
+// potentialColliders.push(otherUnit1);
+// potentialColliders.push(otherUnit2);
+// potentialColliders.push(wall1);
+// potentialColliders.push(wall2);
+
+// // Use the raycaster to determine if the unit is colliding with any of the potential colliders.
+// // This will return an array of objects that the unit is colliding with.
+// var collisions = unitRaycaster.intersectObjects(potentialColliders);
+
+// // If the array is not empty, then the unit is colliding with something.
+// if (collisions.length > 0) {
+//   // Here, you can handle the collision by stopping the unit's movement, 
+//   // playing a sound effect, or taking any other action that you want to happen when a collision occurs.
+// }
 }
 
 // handle switching between screen states such as menu, game, game over, mute, and pause states
@@ -115,7 +151,7 @@ export function handleCharacterControls(scene, keypress, character, camera) {
 //     }
 // }
 
-// handle collisions with terrain, obstacles, and objectives
+// // handle collisions with terrain, obstacles, and objectives
 // export function handleCollisions(document, scene, character, screens, sounds, score, camera) {
 //     let chunkManager = scene.getObjectByName('chunkManager');
 
