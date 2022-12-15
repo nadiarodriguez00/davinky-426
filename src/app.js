@@ -50,6 +50,8 @@ const onAnimationFrameHandler = (timeStamp) => {
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
     handlers.handleCharacterControls(scene, keypress, character, camera);
+    handlers.handleUnitCollision(scene, character);
+    handlers.handleEnemyMovement(scene, character);
 
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
