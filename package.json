@@ -1,19 +1,19 @@
 {
-  "name": "lower-case-dashed-name-of-project",
-  "repository": "REPOSITORY-NAME-AS-IT-APPEARS-IN-GITHUB-URL",
+  "name": "davinky",
+  "repository": "davinky-426",
   "version": "0.1.0",
   "title": "daVinky",
-  "description": "SHORT DESCRIPTION OF PROJECT HERE. ONE TO TWO SENTENCES MAX",
+  "description": "final project for cos 426. minigame",
   "keywords": [
     "Princeton",
     "graphics",
     "three.js",
     "COS 426",
     "ivy league",
-    "keyword1",
-    "keyword2",
-    "...",
-    "this last entry CANNOT have a comma after it ->"
+    "davinky",
+    "poro",
+    "paintbrush",
+    "paper enemies"
   ],
   "scripts": {
     "start": "webpack-dev-server --mode development --output-public-path \"\"",

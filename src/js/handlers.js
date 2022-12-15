@@ -72,6 +72,22 @@ export function handleCharacterControls(scene, keypress, character, camera, soun
     }
 }
 
+export function handleBoundaries(scene, character) {
+    let davinky = scene.getObjectByName(character);
+    if (davinky.position.x > 20) {
+        davinky.position.x = 20;
+    }
+    if (davinky.position.x < -20) {
+        davinky.position.x = -20;
+    }
+    if (davinky.position.z > 20) {
+        davinky.position.z = 20;
+    }
+    if (davinky.position.z < -20) {
+        davinky.position.z = -20;
+    }
+}
+
 export function handleCameraAngle(scene, character, camera){
     if(scene.state.FirstPerson){
         let davinky = scene.getObjectByName(character);

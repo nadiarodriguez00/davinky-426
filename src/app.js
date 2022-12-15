@@ -205,6 +205,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handlePaintSpawning(scene);
     //handlers.handleEnemyCulling(scene, character);
     handlers.handleCameraAngle(scene, character, camera);
+    handlers.handleBoundaries(scene, character);
   };
 window.requestAnimationFrame(onAnimationFrameHandler);
 

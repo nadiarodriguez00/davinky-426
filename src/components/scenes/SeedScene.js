@@ -26,6 +26,7 @@ class SeedScene extends Scene {
         this.enemies = []; 
         this.paintBuckets = []
         this.score = 0;
+        this.max = 0;
 
         // Add meshes to scene
         const land = new Land();
