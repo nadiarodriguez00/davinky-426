@@ -178,12 +178,28 @@ export function handleEnemySpawning(scene, character){
     let davinky = scene.getObjectByName(character);
     let enemies = scene.enemies;
     let numEnemies = enemies.length;
-    let maxEnemies = 10;
-    if(numEnemies<maxEnemies){
+    let maxEnemies = 5;
+    if(numEnemies < maxEnemies) {
         scene.spawnEnemies(1);
     }
     console.log('numEnemies', numEnemies);
 }
+
+
+// removes enemies once they've reached davinky
+export function handleEnemyCulling(scene, character) {
+    let davinky = scene.getObjectByName(character);
+    let enemies = scene.enemies;
+    let numEnemies = enemies.length;
+    for (let i = 0; i < numEnemies; i++) {
+        let enemy = enemies[i];
+        if (enemy.position.clone().sub(davinky.position).length() < 1) {
+            scene.remove(enemy);
+            enemies.splice(i, 1);
+        }
+    }
+}
+
 
 export function handleCursor(scene, mouse, camera, cursor){
     let enemies = scene.enemies;
