@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Vector2, Vector3 } from "three";
 
 // maintan boolens to keep track if buffer period is active and if 
 // game is muted
@@ -10,28 +11,35 @@ let timer;
 
 // handle user controls input
 export function handleKeyDown(event, keypress) {
-    if (event.key == "ArrowUp") keypress['up'] = true;
-    if (event.key == "ArrowDown") keypress['down'] = true;
-    if (event.key == "ArrowLeft") keypress['left'] = true;
-    if (event.key == "ArrowRight") keypress['right'] = true;
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up']    = true;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = true;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = true;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = true;
+    if (event.key == ' ') keypress['space'] = true;
 }
 
 // terminate the action caused by user controls input
 export function handleKeyUp(event, keypress) {
-    if (event.key == "ArrowUp") keypress['up'] = false;
-    if (event.key == "ArrowDown") keypress['down'] = false;
-    if (event.key == "ArrowLeft") keypress['left'] = false;
-    if (event.key == "ArrowRight") keypress['right'] = false;
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up']    = false;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = false;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = false;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = false;
+    if (event.key == ' ') keypress['space'] = false;
 }
+
+// Set the initial velocity and jumping state of the box
+const velocity = new THREE.Vector3();
+let jumping = false;
 
 // move character and camera position in response to user controls input
 export function handleCharacterControls(scene, keypress, character, camera) {
     let davinky = scene.getObjectByName(character);
+    const jumpHeight = 0.5;
+    const gravityCoefficient = 0.02;
     const delta = 0.1;
     if (keypress['up'] && davinky.position.y < 20) {
         davinky.position.x -= delta;
-        davinky.rotation.y = Math.PI;
-        
+        davinky.rotation.y = Math.PI;        
     }
     
     if (keypress['down']) {
@@ -46,15 +54,22 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     if (keypress['left']) {
         davinky.position.z += delta;
         davinky.rotation.y = -Math.PI / 2;
-
+    }
+    if(keypress['space'] && !jumping) {
+        velocity.y += jumpHeight;
+        jumping = true;
     }
 
-    // if (!plane.state.barrel) {
-    //     camera.rotation.z = plane.rotation.z / 3;
-    // } else {
-    //     camera.rotation.z = plane.state.barrel / 3;
-    // }
-    //camera.position.y = 2 + plane.rotation.x * 2;
+    // Update the position of the davinky based on its velocity
+    davinky.position.y += velocity.y;
+    // Apply gravity to the davinky velocity to simulate falling
+    velocity.y -= gravityCoefficient;
+    console.log(davinky.position.y)
+    // If davinky has landed on the ground, stop its vertical velocity and reset the jumping state
+    if (davinky.position.y < 0.0) {
+        davinky.position.y = 0.0;
+        jumping = false; // this makes it so 
+    }
 }
 
 // handle unit collisions 
@@ -87,15 +102,45 @@ export function handleUnitCollision(scene, character){
 export function handleEnemyMovement(scene, character){
     let davinky = scene.getObjectByName(character);
     let enemies = scene.enemies;
-    let enemySpeed = 0.01
+    let enemySpeed = 0.015
     for (var i = 0; i < enemies.length; i++) {
         var enemy = enemies[i];
     
         // Move the enemy towards the player
         var direction = new THREE.Vector3().subVectors(davinky.position, enemy.position).normalize();
+        direction.y = 0;
+        enemy.lookAt(davinky.position);
         enemy.position.add(direction.multiplyScalar(enemySpeed));
         
       }
+}
+
+export function handleCursor(scene, mouse, camera, cursor){
+    let enemies = scene.enemies;
+    // Function to update the game state
+
+    const worldCoordinates = new THREE.Vector3(mouse.x, mouse.y, 0);
+    worldCoordinates.unproject(camera);
+
+    // Update the position of the cursor to match the mouse position
+    cursor.position.x = worldCoordinates.x;
+    cursor.position.y = worldCoordinates.y;
+    cursor.position.z = worldCoordinates.z;
+    console.log('mouse position', cursor.position);
+  
+    // Use a raycaster to check if the cursor is intersecting with any enemies
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(cursor.position, camera);
+
+    // ******this line of code needs the enemies bounding boxes--not the enemies itself
+    const intersects = raycaster.intersectObjects(enemies);
+  
+    // If the cursor is intersecting with an enemy, remove it from the scene
+    if (intersects.length > 0) {
+      scene.remove(intersects[0].object);
+      enemies.splice(enemies.indexOf(intersects[0].object), 1);
+    }
+  
 }
 
 // handle switching between screen states such as menu, game, game over, mute, and pause states

@@ -41,7 +41,7 @@ class SeedScene extends Scene {
         const numEnemies = 5;
         for (let i = 0; i < numEnemies; i++) {
         const enemy = new Enemy();
-        enemy.position.set(Math.random() * 15 - 5, 0, Math.random() * 15 - 5);
+        enemy.position.set(Math.random() * 40 - 20, 0, Math.random() * 40 - 20);
         // update array of enemies
         this.enemies.push(enemy);
         // add enemy to scene
