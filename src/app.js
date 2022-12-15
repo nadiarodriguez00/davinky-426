@@ -19,7 +19,7 @@ const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
 camera.position.set(-10, 5, 0);
-console.log(scene.children[1].position)
+// console.log(scene.children[1].position)
 //camera.lookAt(new Vector3(0, 0, 0));
 
 
