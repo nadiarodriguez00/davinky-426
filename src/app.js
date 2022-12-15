@@ -65,6 +65,9 @@ document.addEventListener('mousemove', (event) => {
   mouse.y = event.clientY;
 });
 
+// // enemy spawning
+// let spawningRate = 1000;
+// var interval = setInterval(handlers.handleEnemySpawning(scene, character), spawningRate);
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
@@ -76,7 +79,8 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleUnitCollision(scene, character);
     handlers.handleEnemyMovement(scene, character);
     handlers.handleCursor(scene, mouse, camera, cursor);
-};
+    handlers.handleEnemySpawning(scene, character)
+  };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
 // Resize Handler

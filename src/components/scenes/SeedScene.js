@@ -27,8 +27,6 @@ class SeedScene extends Scene {
         const davinky = new Davinky(this);
         const lights = new BasicLights();
 
-        // create enemies
-        this.spawnEnemies();
         this.add(land, davinky, lights);
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
@@ -37,11 +35,12 @@ class SeedScene extends Scene {
     }
 
     // used to spawn enemies
-    spawnEnemies(){
-        const numEnemies = 5;
+    spawnEnemies(numEnemies){
         for (let i = 0; i < numEnemies; i++) {
         const enemy = new Enemy();
-        enemy.position.set(Math.random() * 40 - 20, 0, Math.random() * 40 - 20);
+        let x = Math.random() * 40 - 20;
+        let z = Math.random() * 40 - 20;
+        enemy.position.set(x, 0, z);
         // update array of enemies
         this.enemies.push(enemy);
         // add enemy to scene

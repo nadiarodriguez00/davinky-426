@@ -64,7 +64,6 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     davinky.position.y += velocity.y;
     // Apply gravity to the davinky velocity to simulate falling
     velocity.y -= gravityCoefficient;
-    console.log(davinky.position.y)
     // If davinky has landed on the ground, stop its vertical velocity and reset the jumping state
     if (davinky.position.y < 0.0) {
         davinky.position.y = 0.0;
@@ -115,6 +114,18 @@ export function handleEnemyMovement(scene, character){
       }
 }
 
+// Spawns more enemies on screen
+export function handleEnemySpawning(scene, character){
+    let davinky = scene.getObjectByName(character);
+    let enemies = scene.enemies;
+    let numEnemies = enemies.length;
+    let maxEnemies = 10;
+    if(numEnemies<maxEnemies){
+        scene.spawnEnemies(1);
+    }
+    console.log('numEnemies', numEnemies);
+}
+
 export function handleCursor(scene, mouse, camera, cursor){
     let enemies = scene.enemies;
     // Function to update the game state
@@ -126,8 +137,7 @@ export function handleCursor(scene, mouse, camera, cursor){
     cursor.position.x = worldCoordinates.x;
     cursor.position.y = worldCoordinates.y;
     cursor.position.z = worldCoordinates.z;
-    console.log('mouse position', cursor.position);
-  
+      
     // Use a raycaster to check if the cursor is intersecting with any enemies
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(cursor.position, camera);
