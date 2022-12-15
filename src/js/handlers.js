@@ -169,7 +169,7 @@ export function handleEnemyMovement(scene, character){
     let enemies = scene.enemies;
     // make enemies get faster as you get a higher score
     let enemySpeed = 0.005*scene.score;
-    if(enemySpeed>0.1) enemySpeed =0.09;
+    //if(enemySpeed>0.1) enemySpeed =0.09;
     for (var i = 0; i < enemies.length; i++) {
         var enemy = enemies[i];
     
