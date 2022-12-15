@@ -71,17 +71,24 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     }
 }
 
-export function firstPersonCamera(scene, character, camera){
-    let davinky = scene.getObjectByName(character);
-    camera.position.copy(davinky.position);
-    camera.position.y +=2;
-    const direction = new THREE.Vector3();
-    davinky.getWorldDirection(direction);
-    const newDirect = new THREE.Vector3(0, 0,-1);
-    // Set the camera's quaternion to match the character's direction vector
-    const targetOrientation = new THREE.Quaternion();
-    targetOrientation.setFromUnitVectors(new THREE.Vector3(1, 0, 0), direction);
-    camera.quaternion.slerp(targetOrientation, 0.05);
+export function handleCameraAngle(scene, character, camera){
+    if(scene.state.FirstPerson){
+        let davinky = scene.getObjectByName(character);
+        camera.position.copy(davinky.position);
+        camera.position.y +=2;
+        const direction = new THREE.Vector3();
+        davinky.getWorldDirection(direction);
+        const newDirect = new THREE.Vector3(0, 0,-1);
+        // Set the camera's quaternion to match the character's direction vector
+        const targetOrientation = new THREE.Quaternion();
+        targetOrientation.setFromUnitVectors(new THREE.Vector3(1, 0, 0), direction);
+        camera.quaternion.slerp(targetOrientation, 0.05);    
+    }
+    else{
+        camera.position.set(35, 25, 0);
+        camera.lookAt(new Vector3(0, 0, 0));
+    }
+    
 }
 
 // handle collisions with enemies

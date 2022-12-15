@@ -64,7 +64,6 @@ const keypress = {};
 //   mouse.y = event.clientY;
 // });
 
-let firstPersonOn = false;
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
@@ -80,6 +79,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleEnemySpawning(scene, character);
     handlers.handlePaintSpawning(scene, character);
     //handlers.handleEnemyCulling(scene, character);
+    handlers.handleCameraAngle(scene, character, camera);
   };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
