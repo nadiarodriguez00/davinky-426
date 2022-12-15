@@ -120,7 +120,7 @@ export function handleEnemySpawning(scene, character){
     let enemies = scene.enemies;
     let numEnemies = enemies.length;
     let maxEnemies = 5;
-    if(numEnemies < maxEnemies){
+    if(numEnemies < maxEnemies) {
         scene.spawnEnemies(1);
     }
     console.log('numEnemies', numEnemies);
