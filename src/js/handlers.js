@@ -15,6 +15,7 @@ export function handleKeyDown(event, keypress) {
     if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = true;
     if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = true;
     if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = true;
+    if (event.key == ' ') keypress['space'] = true;
 }
 
 // terminate the action caused by user controls input
@@ -23,11 +24,18 @@ export function handleKeyUp(event, keypress) {
     if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = false;
     if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = false;
     if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = false;
+    if (event.key == ' ') keypress['space'] = false;
 }
+
+// Set the initial velocity and jumping state of the box
+const velocity = new THREE.Vector3();
+let jumping = false;
 
 // move character and camera position in response to user controls input
 export function handleCharacterControls(scene, keypress, character, camera) {
     let davinky = scene.getObjectByName(character);
+    const jumpHeight = 0.5;
+    const gravityCoefficient = 0.02;
     const delta = 0.1;
     if (keypress['up'] && davinky.position.y < 20) {
         davinky.position.x -= delta;
@@ -46,15 +54,22 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     if (keypress['left']) {
         davinky.position.z += delta;
         davinky.rotation.y = -Math.PI / 2;
-
+    }
+    if(keypress['space'] && !jumping) {
+        velocity.y += jumpHeight;
+        jumping = true;
     }
 
-    // if (!plane.state.barrel) {
-    //     camera.rotation.z = plane.rotation.z / 3;
-    // } else {
-    //     camera.rotation.z = plane.state.barrel / 3;
-    // }
-    // camera.position.y = 2 + plane.rotation.x * 2;
+    // Update the position of the davinky based on its velocity
+    davinky.position.y += velocity.y;
+    // Apply gravity to the davinky velocity to simulate falling
+    velocity.y -= gravityCoefficient;
+    console.log(davinky.position.y)
+    // If davinky has landed on the ground, stop its vertical velocity and reset the jumping state
+    if (davinky.position.y < 0.0) {
+        davinky.position.y = 0.0;
+        jumping = false; // this makes it so 
+    }
 }
 
 // handle unit collisions 
@@ -93,6 +108,7 @@ export function handleEnemyMovement(scene, character){
     
         // Move the enemy towards the player
         var direction = new THREE.Vector3().subVectors(davinky.position, enemy.position).normalize();
+        direction.y = 0;
         enemy.position.add(direction.multiplyScalar(enemySpeed));
         
       }
