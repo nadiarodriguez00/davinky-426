@@ -71,6 +71,7 @@ document.addEventListener('mousemove', (event) => {
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
+    //score = 0;
     controls.update();
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
@@ -80,7 +81,8 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleEnemyMovement(scene, character);
     handlers.handleCursor(scene, mouse, camera, cursor);
     handlers.handleEnemySpawning(scene, character);
-    handlers.handleEnemyCulling(scene, character);
+    handlers.handlePaintSpawning(scene, character);
+    //handlers.handleEnemyCulling(scene, character);
   };
 window.requestAnimationFrame(onAnimationFrameHandler);
 

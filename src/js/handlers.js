@@ -98,7 +98,7 @@ export function handleCharacterControls(scene, keypress, character, camera) {
 // }
 
 // handle collisions with enemies
-export function handleUnitCollision(scene, character){
+export function handleUnitCollision(scene, character, score){
     // First, create a new Raycaster and set its origin to the position of the unit that is moving.
     // The direction of the raycaster should be the direction that the unit is moving in.
     let davinky = scene.getObjectByName(character);
@@ -112,27 +112,21 @@ export function handleUnitCollision(scene, character){
 
     // // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
     var potentialColliders = scene.enemies;
-    // var collisions = [];
-    // for (let i = 0; i < potentialColliders.length; i++) {
-    //     if (unitRaycaster.intersectObjects(potentialColliders[i])) {
-    //         collisions.push(potentialColliders[i])
-    //     }
-    // }
-
-    // console.log("coll", collisions)
+    var paintBuckets = scene.paintBuckets;
 
     let davinkyBB = new THREE.Box3().setFromObject(davinky);
     // const dhelper = new THREE.Box3Helper( davinkyBB, 0xff9f90 );
-    //     scene.add( dhelper );
+    // scene.add( dhelper );
     var enemiesBB = [];
+    var paintBucketsBB = []
 
+    // handle enemy collisions
     for (let i = 0; i < potentialColliders.length; i++) {
         let enemyBB = new THREE.Box3().setFromObject(potentialColliders[i])
         enemiesBB.push(enemyBB)
         // const helper = new THREE.Box3Helper( enemyBB, 0xffff00 );
         // scene.add( helper );
     }
-
 
     for (let i = 0; i < potentialColliders.length; i++) {
         if (davinkyBB.intersectsBox(enemiesBB[i])) {
@@ -141,19 +135,19 @@ export function handleUnitCollision(scene, character){
         }
     }
 
+    // handle paint collisions
+    for (let i = 0; i < paintBuckets.length; i++) {
+        let paintBB = new THREE.Box3().setFromObject(paintBuckets[i])
+        paintBucketsBB.push(paintBB)
+    }
 
-
-    // Use the raycaster to determine if the unit is colliding with any of the potential colliders.
-    // This will return an array of objects that the unit is colliding with.
-
-    //var collisions = unitRaycaster.intersectObjects(potentialColliders);
-
-    // If the array is not empty, then the unit is colliding with something.
-    // if (collisions.length > 0) {
-    //     console.log("collide")
-    // // Here, you can handle the collision by stopping the unit's movement, 
-    // // playing a sound effect, or taking any other action that you want to happen when a collision occurs.
-    // }
+    for (let i = 0; i < paintBuckets.length; i++) {
+        if (davinkyBB.intersectsBox(paintBucketsBB[i])) {
+            scene.remove(paintBuckets[i]);
+            scene.paintBuckets.splice(i, 1);
+            scene.score += 1;
+        }
+    }
 }
 
 
@@ -176,14 +170,21 @@ export function handleEnemyMovement(scene, character){
 
 // Spawns more enemies on screen
 export function handleEnemySpawning(scene, character){
-    let davinky = scene.getObjectByName(character);
     let enemies = scene.enemies;
     let numEnemies = enemies.length;
     let maxEnemies = 5;
     if(numEnemies < maxEnemies) {
         scene.spawnEnemies(1);
     }
-    console.log('numEnemies', numEnemies);
+}
+
+export function handlePaintSpawning(scene, character){
+    let paintBuckets = scene.paintBuckets;
+    let numBuckets = paintBuckets.length;
+    let maxBuckets = 7;
+    if(numBuckets < maxBuckets) {
+        scene.spawnPaint(1);
+    }
 }
 
 
