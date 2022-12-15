@@ -97,6 +97,7 @@ export function handleCharacterControls(scene, keypress, character, camera) {
 //     }
 // }
 
+// handle collisions with enemies
 export function handleUnitCollision(scene, character){
     // First, create a new Raycaster and set its origin to the position of the unit that is moving.
     // The direction of the raycaster should be the direction that the unit is moving in.
