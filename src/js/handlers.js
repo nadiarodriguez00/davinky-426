@@ -109,6 +109,7 @@ export function handleEnemyMovement(scene, character){
         // Move the enemy towards the player
         var direction = new THREE.Vector3().subVectors(davinky.position, enemy.position).normalize();
         direction.y = 0;
+        enemy.lookAt(davinky.position);
         enemy.position.add(direction.multiplyScalar(enemySpeed));
         
       }
