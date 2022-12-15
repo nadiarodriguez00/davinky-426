@@ -121,6 +121,9 @@ export function handleUnitCollision(scene, character, sounds){
         if (davinkyBB.intersectsBox(enemiesBB[i])) {
             scene.remove(potentialColliders[i]);
             scene.enemies.splice(i, 1);
+            scene.score -=1;
+            const scoreElement = document.getElementById('score');
+            scoreElement.innerHTML = 'Score: ' + (scene.score*(scene.state.FirstPerson ? 2 : 1)+1*scene.state.rotationSpeed).toFixed(2);
             sounds['hurt1'].play();
         }
     }
@@ -136,6 +139,8 @@ export function handleUnitCollision(scene, character, sounds){
             scene.remove(paintBuckets[i]);
             scene.paintBuckets.splice(i, 1);
             scene.score += 1;
+            const scoreElement = document.getElementById('score');
+            scoreElement.innerHTML = 'Score: ' + (scene.score*(scene.state.FirstPerson ? 2 : 1)+1*scene.state.rotationSpeed).toFixed(2);
             sounds['splash1'].play();
         }
     }

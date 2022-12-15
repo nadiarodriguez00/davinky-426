@@ -10,6 +10,9 @@ import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { SeedScene } from 'scenes';
 import * as THREE from "three";
 
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+// Import the Object3D class
+import { Object3D } from 'three';
 import *  as handlers from './js/handlers.js';
 
 
@@ -18,6 +21,31 @@ const scene = new SeedScene();
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 
+//// score display ///////////////////////////////////////
+// Create a new CSS3DRenderer instance
+const cssRenderer = new CSS3DRenderer();
+// Create a new HTML element
+const element = document.createElement('div');
+
+// Set the HTML content of the element
+element.innerHTML = '<div id="score">Score: 0</div>';
+
+// Create a new Object3D instance
+const object = new Object3D();
+
+// Add the HTML element as a child of the Object3D
+object.add(element);
+
+// Add the Object3D to the scene
+scene.add(object);
+
+// Add the HTML element to the page
+document.body.appendChild(element);
+
+// Set the position and rotation of the HTML element using the Object3D
+object.position.set(0, 0, 1);
+object.rotation.set(0, 0, Math.PI / 2);
+/////////////////////////////////////////////////////////////////////////
 // Set up camera
 camera.position.set(35, 25, 0);
 camera.lookAt(new Vector3(0, 0, 0));
@@ -165,13 +193,14 @@ const keypress = {};
 const onAnimationFrameHandler = (timeStamp) => {
     //score = 0;
     // controls.update();
+    // Use the Object3D to update the position and rotation of the HTML element
+    object.updateMatrixWorld();
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
     handlers.handleCharacterControls(scene, keypress, character, camera, sounds);
-    handlers.handleUnitCollision(scene, character, sounds);
+    handlers.handleUnitCollision(scene, character, sounds, document);
     handlers.handleEnemyMovement(scene, character);
-    // handlers.handleCursor(scene, mouse, camera, cursor);
     handlers.handleEnemySpawning(scene);
     handlers.handlePaintSpawning(scene);
     //handlers.handleEnemyCulling(scene, character);
