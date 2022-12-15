@@ -98,12 +98,6 @@ export function handleUnitCollision(scene, character, score){
     let davinky = scene.getObjectByName(character);
     var direction = new THREE.Vector3(davinky.position).normalize();
 
-    // davinky.getWorldDirection(direction);
-    // var unitRaycaster = new THREE.Raycaster(davinky.position, direction);
-    // scene.add(new THREE.ArrowHelper(unitRaycaster.ray.direction, unitRaycaster.ray.origin, 300, 0xff0000) );
-
-    // // Next, create an array that will hold all of the objects in the scene that the unit could potentially collide with.
-
     // // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
     var potentialColliders = scene.enemies;
     var paintBuckets = scene.paintBuckets;
@@ -164,7 +158,7 @@ export function handleEnemyMovement(scene, character){
 }
 
 // Spawns more enemies on screen
-export function handleEnemySpawning(scene, character){
+export function handleEnemySpawning(scene){
     let enemies = scene.enemies;
     let numEnemies = enemies.length;
     let maxEnemies = scene.score;
@@ -173,7 +167,7 @@ export function handleEnemySpawning(scene, character){
     }
 }
 
-export function handlePaintSpawning(scene, character){
+export function handlePaintSpawning(scene){
     let paintBuckets = scene.paintBuckets;
     let numBuckets = paintBuckets.length;
     let maxBuckets = 7;
