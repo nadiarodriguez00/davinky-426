@@ -79,7 +79,8 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleUnitCollision(scene, character);
     handlers.handleEnemyMovement(scene, character);
     handlers.handleCursor(scene, mouse, camera, cursor);
-    handlers.handleEnemySpawning(scene, character)
+    handlers.handleEnemySpawning(scene, character);
+    handlers.handleEnemyCulling(scene, character);
   };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
