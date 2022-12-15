@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Vector2, Vector3 } from "three";
 
 // maintan boolens to keep track if buffer period is active and if 
 // game is muted
@@ -10,18 +11,18 @@ let timer;
 
 // handle user controls input
 export function handleKeyDown(event, keypress) {
-    if (event.key == "ArrowUp") keypress['up'] = true;
-    if (event.key == "ArrowDown") keypress['down'] = true;
-    if (event.key == "ArrowLeft") keypress['left'] = true;
-    if (event.key == "ArrowRight") keypress['right'] = true;
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up']    = true;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = true;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = true;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = true;
 }
 
 // terminate the action caused by user controls input
 export function handleKeyUp(event, keypress) {
-    if (event.key == "ArrowUp") keypress['up'] = false;
-    if (event.key == "ArrowDown") keypress['down'] = false;
-    if (event.key == "ArrowLeft") keypress['left'] = false;
-    if (event.key == "ArrowRight") keypress['right'] = false;
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up']    = false;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = false;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = false;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = false;
 }
 
 // move character and camera position in response to user controls input
@@ -30,8 +31,7 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     const delta = 0.1;
     if (keypress['up'] && davinky.position.y < 20) {
         davinky.position.x -= delta;
-        davinky.rotation.y = Math.PI;
-        
+        davinky.rotation.y = Math.PI;        
     }
     
     if (keypress['down']) {
@@ -54,7 +54,7 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     // } else {
     //     camera.rotation.z = plane.state.barrel / 3;
     // }
-    //camera.position.y = 2 + plane.rotation.x * 2;
+    // camera.position.y = 2 + plane.rotation.x * 2;
 }
 
 // handle unit collisions 
@@ -87,7 +87,7 @@ export function handleUnitCollision(scene, character){
 export function handleEnemyMovement(scene, character){
     let davinky = scene.getObjectByName(character);
     let enemies = scene.enemies;
-    let enemySpeed = 0.01
+    let enemySpeed = 0.015
     for (var i = 0; i < enemies.length; i++) {
         var enemy = enemies[i];
     
