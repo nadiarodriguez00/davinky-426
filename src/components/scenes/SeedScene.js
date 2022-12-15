@@ -67,7 +67,7 @@ class SeedScene extends Scene {
         let geometry;
         let material;
         let loader = new THREE.TextureLoader();
-        let texture = loader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/components/textures/patterns/paint-texture.png');
+        let texture = loader.load('https://webglfundamentals.org/webgl/resources/f-texture.png');
         geometry = new THREE.SphereGeometry( 0.5, 10, 5 );
         material = new THREE.MeshPhongMaterial( { map: texture} );
         
