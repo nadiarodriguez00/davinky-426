@@ -74,28 +74,87 @@ export function handleCharacterControls(scene, keypress, character, camera) {
 // handle unit collisions 
 // **WE STILL NEED TO PASS IN THREEJS OBJECTS (HITBOXES) IN ORDER FOR THIS TO WORK
 // **right now davinky and enemies are undefined because they were loaded in using a gtlf loader.
+// export function handleUnitCollision(scene, character){
+//     // First, create a new Raycaster and set its origin to the position of the unit that is moving.
+//     // The direction of the raycaster should be the direction that the unit is moving in.
+//     let davinky = scene.getObjectByName(character);
+//     var direction = new THREE.Vector3();
+//     // davinky.getWorldDirection(direction);
+//     var unitRaycaster = new THREE.Raycaster(davinky.position, direction);
+//     // Next, create an array that will hold all of the objects in the scene that the unit could potentially collide with.
+
+//     // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
+//     var potentialColliders = scene.enemies;
+
+//     // Use the raycaster to determine if the unit is colliding with any of the potential colliders.
+//     // This will return an array of objects that the unit is colliding with.
+//     var collisions = unitRaycaster.intersectObjects(potentialColliders);
+
+//     // If the array is not empty, then the unit is colliding with something.
+//     if (collisions.length > 0) {
+//     // Here, you can handle the collision by stopping the unit's movement, 
+//     // playing a sound effect, or taking any other action that you want to happen when a collision occurs.
+//     }
+// }
+
 export function handleUnitCollision(scene, character){
     // First, create a new Raycaster and set its origin to the position of the unit that is moving.
     // The direction of the raycaster should be the direction that the unit is moving in.
     let davinky = scene.getObjectByName(character);
-    var direction = new THREE.Vector3();
-    // davinky.getWorldDirection(direction);
-    var unitRaycaster = new THREE.Raycaster(davinky.position, direction);
-    // Next, create an array that will hold all of the objects in the scene that the unit could potentially collide with.
+    var direction = new THREE.Vector3(davinky.position).normalize();
 
-    // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
+    // davinky.getWorldDirection(direction);
+    // var unitRaycaster = new THREE.Raycaster(davinky.position, direction);
+    // scene.add(new THREE.ArrowHelper(unitRaycaster.ray.direction, unitRaycaster.ray.origin, 300, 0xff0000) );
+
+    // // Next, create an array that will hold all of the objects in the scene that the unit could potentially collide with.
+
+    // // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
     var potentialColliders = scene.enemies;
+    // var collisions = [];
+    // for (let i = 0; i < potentialColliders.length; i++) {
+    //     if (unitRaycaster.intersectObjects(potentialColliders[i])) {
+    //         collisions.push(potentialColliders[i])
+    //     }
+    // }
+
+    // console.log("coll", collisions)
+
+    let davinkyBB = new THREE.Box3().setFromObject(davinky);
+    // const dhelper = new THREE.Box3Helper( davinkyBB, 0xff9f90 );
+    //     scene.add( dhelper );
+    var enemiesBB = [];
+
+    for (let i = 0; i < potentialColliders.length; i++) {
+        let enemyBB = new THREE.Box3().setFromObject(potentialColliders[i])
+        enemiesBB.push(enemyBB)
+        // const helper = new THREE.Box3Helper( enemyBB, 0xffff00 );
+        // scene.add( helper );
+    }
+
+
+    for (let i = 0; i < potentialColliders.length; i++) {
+        if (davinkyBB.intersectsBox(enemiesBB[i])) {
+            scene.remove(potentialColliders[i]);
+            enemies.splice(i, 1);
+        }
+    }
+
+
 
     // Use the raycaster to determine if the unit is colliding with any of the potential colliders.
     // This will return an array of objects that the unit is colliding with.
-    var collisions = unitRaycaster.intersectObjects(potentialColliders);
+
+    //var collisions = unitRaycaster.intersectObjects(potentialColliders);
 
     // If the array is not empty, then the unit is colliding with something.
-    if (collisions.length > 0) {
-    // Here, you can handle the collision by stopping the unit's movement, 
-    // playing a sound effect, or taking any other action that you want to happen when a collision occurs.
-    }
+    // if (collisions.length > 0) {
+    //     console.log("collide")
+    // // Here, you can handle the collision by stopping the unit's movement, 
+    // // playing a sound effect, or taking any other action that you want to happen when a collision occurs.
+    // }
 }
+
 
 // Moves enemies positions towards Davinky
 export function handleEnemyMovement(scene, character){
