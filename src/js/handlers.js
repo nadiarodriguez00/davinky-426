@@ -136,7 +136,7 @@ export function handleUnitCollision(scene, character){
     for (let i = 0; i < potentialColliders.length; i++) {
         if (davinkyBB.intersectsBox(enemiesBB[i])) {
             scene.remove(potentialColliders[i]);
-            enemies.splice(i, 1);
+            scene.enemies.splice(i, 1);
         }
     }
 
