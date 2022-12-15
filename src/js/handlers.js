@@ -72,19 +72,23 @@ export function handleCharacterControls(scene, keypress, character, camera, soun
     }
 }
 
-export function handleBoundaries(scene, character) {
+export function handleBoundaries(scene, character, sounds) {
     let davinky = scene.getObjectByName(character);
     if (davinky.position.x > 20) {
         davinky.position.x = 20;
+        sounds['sad1'].play();
     }
     if (davinky.position.x < -20) {
         davinky.position.x = -20;
+        sounds['sad1'].play();
     }
     if (davinky.position.z > 20) {
         davinky.position.z = 20;
+        sounds['sad1'].play();
     }
     if (davinky.position.z < -20) {
         davinky.position.z = -20;
+        sounds['sad1'].play();
     }
 }
 

@@ -161,11 +161,11 @@ audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426
 //     land3.setVolume(0.4);
 // });
 
-// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/sad1.wav', function(buffer) {
-//     sad1.setBuffer(buffer);
-//     sad1.setLoop(false);
-//     sad1.setVolume(0.4);
-// });
+audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/sounds/sad1.wav', function(buffer) {
+    sad1.setBuffer(buffer);
+    sad1.setLoop(false);
+    sad1.setVolume(0.4);
+});
 
 // audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/sad2.wav', function(buffer) {
 //     sad2.setBuffer(buffer);
@@ -205,7 +205,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handlePaintSpawning(scene);
     //handlers.handleEnemyCulling(scene, character);
     handlers.handleCameraAngle(scene, character, camera);
-    handlers.handleBoundaries(scene, character);
+    handlers.handleBoundaries(scene, character, sounds);
   };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
