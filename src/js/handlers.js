@@ -32,7 +32,7 @@ const velocity = new THREE.Vector3();
 let jumping = false;
 
 // move character and camera position in response to user controls input
-export function handleCharacterControls(scene, keypress, character, camera) {
+export function handleCharacterControls(scene, keypress, character, camera, sounds) {
     let davinky = scene.getObjectByName(character);
     const jumpHeight = 0.5;
     const gravityCoefficient = 0.02;
@@ -58,6 +58,7 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     if(keypress['space'] && !jumping) {
         velocity.y += jumpHeight;
         jumping = true;
+        sounds['jump1'].play();
     }
 
     // Update the position of the davinky based on its velocity
