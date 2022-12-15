@@ -7,7 +7,6 @@
  *
  */
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
 import * as THREE from "three";
 
@@ -20,7 +19,7 @@ const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
-camera.position.set(6, 3, -10);
+camera.position.set(35, 25, 0);
 camera.lookAt(new Vector3(0, 0, 0));
 
 // Set up renderer, canvas, and minor CSS adjustments
@@ -43,27 +42,27 @@ document.body.appendChild(canvas);
 const character = 'davinky';
 const keypress = {};
 
-// Create a sphere to represent the player's mouse cursor
-const cursorRadius = 0.1;
-const cursorGeometry = new THREE.SphereGeometry(cursorRadius, 32, 32);
-const cursorMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
-const cursor = new THREE.Mesh(cursorGeometry, cursorMaterial);
+// // Create a sphere to represent the player's mouse cursor
+// const cursorRadius = 0.1;
+// const cursorGeometry = new THREE.SphereGeometry(cursorRadius, 32, 32);
+// const cursorMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+// const cursor = new THREE.Mesh(cursorGeometry, cursorMaterial);
 
-// Add the cursor to the scene
-scene.add(cursor);
+// // Add the cursor to the scene
+// scene.add(cursor);
 
-// Initialize the mouse.x and mouse.y variables to 0
-let mouse = {
-  x: 0,
-  y: 0
-};
+// // Initialize the mouse.x and mouse.y variables to 0
+// let mouse = {
+//   x: 0,
+//   y: 0
+// };
 
-// Add an event listener to the document to listen for the mousemove event
-document.addEventListener('mousemove', (event) => {
-  // Update the mouse.x and mouse.y values with the event.clientX and event.clientY values
-  mouse.x = event.clientX;
-  mouse.y = event.clientY;
-});
+// // Add an event listener to the document to listen for the mousemove event
+// document.addEventListener('mousemove', (event) => {
+//   // Update the mouse.x and mouse.y values with the event.clientX and event.clientY values
+//   mouse.x = event.clientX;
+//   mouse.y = event.clientY;
+// });
 
 let firstPersonOn = false;
 
@@ -77,7 +76,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleCharacterControls(scene, keypress, character, camera);
     handlers.handleUnitCollision(scene, character);
     handlers.handleEnemyMovement(scene, character);
-    handlers.handleCursor(scene, mouse, camera, cursor);
+    // handlers.handleCursor(scene, mouse, camera, cursor);
     handlers.handleEnemySpawning(scene, character);
     handlers.handlePaintSpawning(scene, character);
     //handlers.handleEnemyCulling(scene, character);

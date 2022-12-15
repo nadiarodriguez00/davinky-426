@@ -142,7 +142,8 @@ export function handleUnitCollision(scene, character, score){
 export function handleEnemyMovement(scene, character){
     let davinky = scene.getObjectByName(character);
     let enemies = scene.enemies;
-    let enemySpeed = 0.015
+    let enemySpeed = 0.005*scene.score;
+    if(enemySpeed>0.1) enemySpeed =0.09;
     for (var i = 0; i < enemies.length; i++) {
         var enemy = enemies[i];
     
@@ -159,7 +160,7 @@ export function handleEnemyMovement(scene, character){
 export function handleEnemySpawning(scene, character){
     let enemies = scene.enemies;
     let numEnemies = enemies.length;
-    let maxEnemies = 5;
+    let maxEnemies = scene.score;
     if(numEnemies < maxEnemies) {
         scene.spawnEnemies(1);
     }
