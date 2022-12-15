@@ -98,6 +98,34 @@ export function handleEnemyMovement(scene, character){
       }
 }
 
+export function handleCursor(scene, mouse, camera, cursor){
+    let enemies = scene.enemies;
+    // Function to update the game state
+
+    const worldCoordinates = new THREE.Vector3(mouse.x, mouse.y, 0);
+    worldCoordinates.unproject(camera);
+
+    // Update the position of the cursor to match the mouse position
+    cursor.position.x = worldCoordinates.x;
+    cursor.position.y = worldCoordinates.y;
+    cursor.position.z = worldCoordinates.z;
+    console.log('mouse position', cursor.position);
+  
+    // Use a raycaster to check if the cursor is intersecting with any enemies
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(cursor.position, camera);
+
+    // ******this line of code needs the enemies bounding boxes--not the enemies itself
+    const intersects = raycaster.intersectObjects(enemies);
+  
+    // If the cursor is intersecting with an enemy, remove it from the scene
+    if (intersects.length > 0) {
+      scene.remove(intersects[0].object);
+      enemies.splice(enemies.indexOf(intersects[0].object), 1);
+    }
+  
+}
+
 // handle switching between screen states such as menu, game, game over, mute, and pause states
 // export function handleScreens(event, screens, document, canvas, character, scene, menuCanvas, sounds, score) {
 //     if (event.key == 'm' && !screens['ending'] && !screens['menu']) {

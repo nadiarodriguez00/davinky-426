@@ -9,6 +9,7 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
+import * as THREE from "three";
 
 import *  as handlers from './js/handlers.js';
 
@@ -42,6 +43,29 @@ controls.update();
 const character = 'davinky';
 const keypress = {};
 
+// Create a sphere to represent the player's mouse cursor
+const cursorRadius = 0.1;
+const cursorGeometry = new THREE.SphereGeometry(10, 32, 32);
+const cursorMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+const cursor = new THREE.Mesh(cursorGeometry, cursorMaterial);
+
+// Add the cursor to the scene
+scene.add(cursor);
+
+// Initialize the mouse.x and mouse.y variables to 0
+let mouse = {
+  x: 0,
+  y: 0
+};
+
+// Add an event listener to the document to listen for the mousemove event
+document.addEventListener('mousemove', (event) => {
+  // Update the mouse.x and mouse.y values with the event.clientX and event.clientY values
+  mouse.x = event.clientX;
+  mouse.y = event.clientY;
+});
+
+
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
     controls.update();
@@ -51,7 +75,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleCharacterControls(scene, keypress, character, camera);
     handlers.handleUnitCollision(scene, character);
     handlers.handleEnemyMovement(scene, character);
-
+    handlers.handleCursor(scene, mouse, camera, cursor);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
