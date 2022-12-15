@@ -10,16 +10,19 @@ class Davinky extends Group {
 
         // Init state
         this.state = {
-            gui: parent.state.gui,
+            // gui: parent.state.gui,
             bob: true,
             spin: this.spin.bind(this),
         };
+        
         this.name = 'davinky';
         this.addDavinky();
-        parent.addToUpdateList(this);
+        // parent.addToUpdateList(this);
     }
 
     addDavinky() {
+        
+        // Load object
         const loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);
