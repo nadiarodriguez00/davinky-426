@@ -2,6 +2,8 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Land, Davinky, Enemy } from 'objects';
 import { BasicLights } from 'lights';
+import * as THREE from "three";
+
 // import { Enemy } from '../objects/Enemy';
 
 class SeedScene extends Scene {
@@ -21,19 +23,29 @@ class SeedScene extends Scene {
         this.background = new Color(0x7ec0ee);
         // stores an array of all enemy objects
         this.enemies = []; 
+        this.paintBuckets = []
+        this.score = 0;
 
         // Add meshes to scene
         const land = new Land();
         const davinky = new Davinky(this);
         const lights = new BasicLights();
 
+        let materialmodel = new THREE.MeshBasicMaterial({
+            color: 0xFF0000,
+        });
+
         this.add(land, davinky, lights);
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
-        this.state.gui.addColor(this.state, 'color');
+        this.state.gui.addColor(this.state, "color").onChange(function() {materialmodel.color.set(this.state.color)});
 
-    }
+    
+  };
 
+
+
+    
     // used to spawn enemies
     spawnEnemies(numEnemies){
         for (let i = 0; i < numEnemies; i++) {
@@ -46,6 +58,27 @@ class SeedScene extends Scene {
         // add enemy to scene
         this.add(enemy);
         }
+    }
+
+    spawnPaint(numPaint){
+    
+        let geometry;
+        let material;
+        let loader = new THREE.TextureLoader();
+        let texture = loader.load('../textures/patterns/paint-texture.png');
+        geometry = new THREE.SphereGeometry( 0.5, 10, 5 );
+        material = new THREE.MeshPhongMaterial( { map: texture} );
+        
+        for (let i = 0; i < numPaint; i++) {
+            const paintBucket = new THREE.Mesh( geometry, material );
+            let x = Math.random() * 40 - 20;
+            let z = Math.random() * 40 - 20;
+            paintBucket.position.set(x, 0.7, z);
+            // update array of enemies
+            this.paintBuckets.push(paintBucket);
+            // add enemy to scene
+            this.add(paintBucket);
+            }
     }
 
     addToUpdateList(object) {
