@@ -71,31 +71,18 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     }
 }
 
-// handle unit collisions 
-// **WE STILL NEED TO PASS IN THREEJS OBJECTS (HITBOXES) IN ORDER FOR THIS TO WORK
-// **right now davinky and enemies are undefined because they were loaded in using a gtlf loader.
-// export function handleUnitCollision(scene, character){
-//     // First, create a new Raycaster and set its origin to the position of the unit that is moving.
-//     // The direction of the raycaster should be the direction that the unit is moving in.
-//     let davinky = scene.getObjectByName(character);
-//     var direction = new THREE.Vector3();
-//     // davinky.getWorldDirection(direction);
-//     var unitRaycaster = new THREE.Raycaster(davinky.position, direction);
-//     // Next, create an array that will hold all of the objects in the scene that the unit could potentially collide with.
-
-//     // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
-//     var potentialColliders = scene.enemies;
-
-//     // Use the raycaster to determine if the unit is colliding with any of the potential colliders.
-//     // This will return an array of objects that the unit is colliding with.
-//     var collisions = unitRaycaster.intersectObjects(potentialColliders);
-
-//     // If the array is not empty, then the unit is colliding with something.
-//     if (collisions.length > 0) {
-//     // Here, you can handle the collision by stopping the unit's movement, 
-//     // playing a sound effect, or taking any other action that you want to happen when a collision occurs.
-//     }
-// }
+export function firstPersonCamera(scene, character, camera){
+    let davinky = scene.getObjectByName(character);
+    camera.position.copy(davinky.position);
+    camera.position.y +=2;
+    const direction = new THREE.Vector3();
+    davinky.getWorldDirection(direction);
+    const newDirect = new THREE.Vector3(0, 0,-1);
+    // Set the camera's quaternion to match the character's direction vector
+    const targetOrientation = new THREE.Quaternion();
+    targetOrientation.setFromUnitVectors(new THREE.Vector3(1, 0, 0), direction);
+    camera.quaternion.slerp(targetOrientation, 0.05);
+}
 
 // handle collisions with enemies
 export function handleUnitCollision(scene, character){

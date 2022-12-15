@@ -32,12 +32,12 @@ document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
 
 // Set up controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-controls.enablePan = false;
-controls.minDistance = 4;
-controls.maxDistance = 40;
-controls.update();
+// const controls = new OrbitControls(camera, canvas);
+// controls.enableDamping = true;
+// controls.enablePan = false;
+// controls.minDistance = 4;
+// controls.maxDistance = 40;
+// controls.update();
 
 /////////////
 const character = 'davinky';
@@ -65,13 +65,11 @@ document.addEventListener('mousemove', (event) => {
   mouse.y = event.clientY;
 });
 
-// // enemy spawning
-// let spawningRate = 1000;
-// var interval = setInterval(handlers.handleEnemySpawning(scene, character), spawningRate);
+let firstPersonOn = false;
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
-    controls.update();
+    // controls.update();
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
@@ -81,6 +79,10 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleCursor(scene, mouse, camera, cursor);
     handlers.handleEnemySpawning(scene, character);
     handlers.handleEnemyCulling(scene, character);
+    if(firstPersonOn) handlers.firstPersonCamera(scene, character, camera);
+    // Camcontrols.update();
+    // camera.position.copy(scene.davinky.position);
+    // camera.rotation.copy(scene.davinky.rotation);  
   };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
