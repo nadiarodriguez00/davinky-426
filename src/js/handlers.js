@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Vector2, Vector3 } from "three";
 
 // maintan boolens to keep track if buffer period is active and if 
 // game is muted
@@ -10,18 +11,18 @@ let timer;
 
 // handle user controls input
 export function handleKeyDown(event, keypress) {
-    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up']    = true;
-    if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = true;
-    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = true;
-    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = true;
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['down']    = true;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['up']  = true;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['right']  = true;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['left'] = true;
 }
 
 // terminate the action caused by user controls input
 export function handleKeyUp(event, keypress) {
-    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up']    = false;
-    if (event.key == "ArrowDown"  || event.key == 's') keypress['down']  = false;
-    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left']  = false;
-    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = false;
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['down']    = false;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['up']  = false;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['right']  = false;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['left'] = false;
 }
 
 // move character and camera position in response to user controls input
@@ -30,12 +31,15 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     const delta = 0.2;
 
     if (keypress['up'] && davinky.position.y < 20) {
-        davinky.position.x -= delta;
+         davinky.position.x -= delta;
+         camera.position.x -= delta;
+         console.log(camera)
     }
     
     if (keypress['down']) {
         davinky.position.x += delta;
-    }
+        camera.position.x += delta;
+     }
     
     if (keypress['right']) {
         davinky.position.z -= delta;
@@ -49,7 +53,7 @@ export function handleCharacterControls(scene, keypress, character, camera) {
     // } else {
     //     camera.rotation.z = plane.state.barrel / 3;
     // }
-    //camera.position.y = 2 + plane.rotation.x * 2;
+    // camera.position.y = 2 + plane.rotation.x * 2;
 }
 
 // handle switching between screen states such as menu, game, game over, mute, and pause states
