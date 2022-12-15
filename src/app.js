@@ -52,8 +52,15 @@ const onAnimationFrameHandler = (timeStamp) => {
     handlers.handleCharacterControls(scene, keypress, character, camera);
     handlers.handleUnitCollision(scene, character);
     handlers.handleEnemyMovement(scene, character);
+<<<<<<< Updated upstream
 
 };
+=======
+    handlers.handleCursor(scene, mouse, camera, cursor);
+    handlers.handleEnemySpawning(scene, character);
+    handlers.handleEnemyCulling(scene, character)
+  };
+>>>>>>> Stashed changes
 window.requestAnimationFrame(onAnimationFrameHandler);
 
 // Resize Handler

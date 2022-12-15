@@ -98,6 +98,59 @@ export function handleEnemyMovement(scene, character){
       }
 }
 
+// Spawns more enemies on screen
+export function handleEnemySpawning(scene, character){
+    let davinky = scene.getObjectByName(character);
+    let enemies = scene.enemies;
+    let numEnemies = enemies.length;
+    let maxEnemies = 5;
+    if(numEnemies < maxEnemies){
+        scene.spawnEnemies(1);
+    }
+    //console.log('numEnemies', numEnemies);
+}
+
+// removes enemies once they've reached davinky
+export function handleEnemyCulling(scene, character) {
+    let davinky = scene.getObjectByName(character);
+    let enemies = scene.enemies;
+    let numEnemies = enemies.length;
+    for (let i = 0; i < numEnemies; i++) {
+        let enemy = enemies[i];
+        if (enemy.position.clone().sub(davinky.position).length() < 1) {
+            scene.remove(enemy);
+            enemies.splice(i, 1);
+        }
+    }
+}
+
+export function handleCursor(scene, mouse, camera, cursor){
+    let enemies = scene.enemies;
+    // Function to update the game state
+
+    const worldCoordinates = new THREE.Vector3(mouse.x, mouse.y, 0);
+    worldCoordinates.unproject(camera);
+
+    // Update the position of the cursor to match the mouse position
+    cursor.position.x = worldCoordinates.x;
+    cursor.position.y = worldCoordinates.y;
+    cursor.position.z = worldCoordinates.z;
+      
+    // Use a raycaster to check if the cursor is intersecting with any enemies
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(cursor.position, camera);
+
+    // ******this line of code needs the enemies bounding boxes--not the enemies itself
+    const intersects = raycaster.intersectObjects(enemies);
+  
+    // If the cursor is intersecting with an enemy, remove it from the scene
+    if (intersects.length > 0) {
+      scene.remove(intersects[0].object);
+      enemies.splice(enemies.indexOf(intersects[0].object), 1);
+    }
+  
+}
+
 // handle switching between screen states such as menu, game, game over, mute, and pause states
 // export function handleScreens(event, screens, document, canvas, character, scene, menuCanvas, sounds, score) {
 //     if (event.key == 'm' && !screens['ending'] && !screens['menu']) {
