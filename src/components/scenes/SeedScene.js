@@ -15,7 +15,7 @@ class SeedScene extends Scene {
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 0,
-            color: '#00ff00',
+            // color: '#00ff00',
             FirstPerson: false,
             updateList: [],
         };
@@ -39,7 +39,7 @@ class SeedScene extends Scene {
         this.add(land, davinky, lights);
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', 0, 5);
-        this.state.gui.addColor(this.state, "color").onChange(function() {materialmodel.color.set(this.state.color)});
+        // this.state.gui.addColor(this.state, "color").onChange(function() {materialmodel.color.set(this.state.color)});
         this.state.gui.add(this.state, 'FirstPerson').onChange();
     
   };
