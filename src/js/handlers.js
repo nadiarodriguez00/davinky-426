@@ -93,7 +93,7 @@ export function handleCameraAngle(scene, character, camera){
 }
 
 // handle collisions with enemies
-export function handleUnitCollision(scene, character, score){
+export function handleUnitCollision(scene, character, sounds){
     // First, create a new Raycaster and set its origin to the position of the unit that is moving.
     // The direction of the raycaster should be the direction that the unit is moving in.
     let davinky = scene.getObjectByName(character);
@@ -121,6 +121,7 @@ export function handleUnitCollision(scene, character, score){
         if (davinkyBB.intersectsBox(enemiesBB[i])) {
             scene.remove(potentialColliders[i]);
             scene.enemies.splice(i, 1);
+            sounds['hurt1'].play();
         }
     }
 
@@ -135,6 +136,7 @@ export function handleUnitCollision(scene, character, score){
             scene.remove(paintBuckets[i]);
             scene.paintBuckets.splice(i, 1);
             scene.score += 1;
+            sounds['splash1'].play();
         }
     }
 }

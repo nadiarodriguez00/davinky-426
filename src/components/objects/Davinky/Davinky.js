@@ -21,11 +21,6 @@ class Davinky extends Group {
         });
     }
 
-
-        // Populate GUI
-        //this.state.gui.add(this.state, 'bob');
-        //this.state.gui.add(this.state, 'spin');
-
     update(timeStamp) {
         if (this.state.bob) {
             // Bob back and forth

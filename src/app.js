@@ -67,95 +67,95 @@ sounds['splash2'] = splash2;
 
 // audio ////////////////////////////
 let audioLoader = new THREE.AudioLoader();
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/celebrate1.wav', function(buffer) {
+audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/sounds/celebrate1.wav', function(buffer) {
     celebrate1.setBuffer(buffer);
     celebrate1.setLoop(false);
     celebrate1.setVolume(0.4);
 });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/happy1.wav', function(buffer) {
-    happy1.setBuffer(buffer);
-    happy1.setLoop(false);
-    happy1.setVolume(0.4);
-});
+// audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/sounds/jump1.wav', function(buffer) {
+//     happy1.setBuffer(buffer);
+//     happy1.setLoop(false);
+//     happy1.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/happy2.wav', function(buffer) {
-    happy2.setBuffer(buffer);
-    happy2.setLoop(false);
-    happy2.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/happy2.wav', function(buffer) {
+//     happy2.setBuffer(buffer);
+//     happy2.setLoop(false);
+//     happy2.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/hurt1.wav', function(buffer) {
+audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/sounds/hurt1.wav', function(buffer) {
     hurt1.setBuffer(buffer);
     hurt1.setLoop(false);
     hurt1.setVolume(0.4);
 });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/hurt2.wav', function(buffer) {
-    hurt2.setBuffer(buffer);
-    hurt2.setLoop(false);
-    hurt2.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/hurt2.wav', function(buffer) {
+//     hurt2.setBuffer(buffer);
+//     hurt2.setLoop(false);
+//     hurt2.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/jump1.wav', function(buffer) {
+audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/sounds/jump1.wav', function(buffer) {
     jump1.setBuffer(buffer);
     jump1.setLoop(false);
     jump1.setVolume(0.4);
 });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/jump2.wav', function(buffer) {
-    jump2.setBuffer(buffer);
-    jump2.setLoop(false);
-    jump2.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/jump2.wav', function(buffer) {
+//     jump2.setBuffer(buffer);
+//     jump2.setLoop(false);
+//     jump2.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/jump3.wav', function(buffer) {
-    jump3.setBuffer(buffer);
-    jump3.setLoop(false);
-    jump3.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/jump3.wav', function(buffer) {
+//     jump3.setBuffer(buffer);
+//     jump3.setLoop(false);
+//     jump3.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/land1.wav', function(buffer) {
+audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/sounds/land1.wav', function(buffer) {
     land1.setBuffer(buffer);
     land1.setLoop(false);
     land1.setVolume(0.4);
 });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/land2.wav', function(buffer) {
-    land2.setBuffer(buffer);
-    land2.setLoop(false);
-    land2.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/land2.wav', function(buffer) {
+//     land2.setBuffer(buffer);
+//     land2.setLoop(false);
+//     land2.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/land3.wav', function(buffer) {
-    land3.setBuffer(buffer);
-    land3.setLoop(false);
-    land3.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/land3.wav', function(buffer) {
+//     land3.setBuffer(buffer);
+//     land3.setLoop(false);
+//     land3.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/sad1.wav', function(buffer) {
-    sad1.setBuffer(buffer);
-    sad1.setLoop(false);
-    sad1.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/sad1.wav', function(buffer) {
+//     sad1.setBuffer(buffer);
+//     sad1.setLoop(false);
+//     sad1.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/sad2.wav', function(buffer) {
-    sad2.setBuffer(buffer);
-    sad2.setLoop(false);
-    sad2.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/sad2.wav', function(buffer) {
+//     sad2.setBuffer(buffer);
+//     sad2.setLoop(false);
+//     sad2.setVolume(0.4);
+// });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/splash1.wav', function(buffer) {
+audioLoader.load('https://raw.githubusercontent.com/nadiarodriguez00/davinky-426/main/src/sounds/splash1.wav', function(buffer) {
     splash1.setBuffer(buffer);
     splash1.setLoop(false);
     splash1.setVolume(0.4);
 });
 
-audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/splash2.wav', function(buffer) {
-    splash2.setBuffer(buffer);
-    splash2.setLoop(false);
-    splash2.setVolume(0.4);
-});
+// audioLoader.load('https://github.com/nadiarodriguez00/davinky-426/raw/main/src/sounds/splash2.wav', function(buffer) {
+//     splash2.setBuffer(buffer);
+//     splash2.setLoop(false);
+//     splash2.setVolume(0.4);
+// });
 //////////////////////////////////////////////////////////////////////////////////
 
 const character = 'davinky';
@@ -169,7 +169,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
     handlers.handleCharacterControls(scene, keypress, character, camera, sounds);
-    handlers.handleUnitCollision(scene, character);
+    handlers.handleUnitCollision(scene, character, sounds);
     handlers.handleEnemyMovement(scene, character);
     // handlers.handleCursor(scene, mouse, camera, cursor);
     handlers.handleEnemySpawning(scene);
