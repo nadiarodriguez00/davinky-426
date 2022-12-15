@@ -11,18 +11,32 @@ let timer;
 
 // handle user controls input
 export function handleKeyDown(event, keypress) {
+<<<<<<< Updated upstream
     if (event.key == "ArrowUp"    || event.key == 'w') keypress['down']    = true;
     if (event.key == "ArrowDown"  || event.key == 's') keypress['up']  = true;
     if (event.key == "ArrowLeft"  || event.key == 'a') keypress['right']  = true;
     if (event.key == "ArrowRight" || event.key == 'd') keypress['left'] = true;
+=======
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up'] = true;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['down'] = true;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left'] = true;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = true;
+>>>>>>> Stashed changes
 }
 
 // terminate the action caused by user controls input
 export function handleKeyUp(event, keypress) {
+<<<<<<< Updated upstream
     if (event.key == "ArrowUp"    || event.key == 'w') keypress['down']    = false;
     if (event.key == "ArrowDown"  || event.key == 's') keypress['up']  = false;
     if (event.key == "ArrowLeft"  || event.key == 'a') keypress['right']  = false;
     if (event.key == "ArrowRight" || event.key == 'd') keypress['left'] = false;
+=======
+    if (event.key == "ArrowUp"    || event.key == 'w') keypress['up'] = false;
+    if (event.key == "ArrowDown"  || event.key == 's') keypress['down'] = false;
+    if (event.key == "ArrowLeft"  || event.key == 'a') keypress['left'] = false;
+    if (event.key == "ArrowRight" || event.key == 'd') keypress['right'] = false;
+>>>>>>> Stashed changes
 }
 
 // move character and camera position in response to user controls input
