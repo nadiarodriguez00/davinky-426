@@ -192,6 +192,7 @@ export function handleEnemySpawning(scene){
     }
 }
 
+// spawn paint balls
 export function handlePaintSpawning(scene){
     let paintBuckets = scene.paintBuckets;
     let numBuckets = paintBuckets.length;
