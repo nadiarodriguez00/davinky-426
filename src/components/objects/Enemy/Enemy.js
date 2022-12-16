@@ -6,8 +6,7 @@ class Enemy extends Group {
     constructor() {
         // Call parent Group() constructor
         super();
-        // this.name = 'enemy';
-        this.addEnemy();
+         this.addEnemy();
     }
     addEnemy() {
         // Load object

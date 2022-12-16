@@ -33,20 +33,20 @@ let jumping = false;
 
 // move character and camera position in response to user controls input
 export function handleCharacterControls(scene, keypress, character, camera, sounds) {
+
     let davinky = scene.getObjectByName(character);
     const jumpHeight = 0.5;
     const gravityCoefficient = 0.02;
     const delta = 0.1;
+
     if (keypress['up'] && davinky.position.y < 20) {
         davinky.position.x -= delta;
         davinky.rotation.y = Math.PI;        
     }
-    
     if (keypress['down']) {
         davinky.position.x += delta;
         davinky.rotation.y = 0;
     }
-    
     if (keypress['right']) {
         davinky.position.z -= delta;
         davinky.rotation.y = Math.PI / 2;
@@ -61,10 +61,9 @@ export function handleCharacterControls(scene, keypress, character, camera, soun
         sounds['jump1'].play();
     }
 
-    // Update the position of the davinky based on its velocity
-    davinky.position.y += velocity.y;
-    // Apply gravity to the davinky velocity to simulate falling
-    velocity.y -= gravityCoefficient;
+    davinky.position.y += velocity.y; // Update the position of the davinky based on its velocity
+    velocity.y -= gravityCoefficient; // Apply gravity to the davinky velocity to simulate falling
+
     // If davinky has landed on the ground, stop its vertical velocity and reset the jumping state
     if (davinky.position.y < 0.0) {
         davinky.position.y = 0.0;
@@ -72,6 +71,7 @@ export function handleCharacterControls(scene, keypress, character, camera, soun
     }
 }
 
+// prevent character from running off of island
 export function handleBoundaries(scene, character, sounds) {
     let davinky = scene.getObjectByName(character);
     if (davinky.position.x > 20) {
@@ -92,6 +92,7 @@ export function handleBoundaries(scene, character, sounds) {
     }
 }
 
+// implement first person camera view
 export function handleCameraAngle(scene, character, camera){
     if(scene.state.FirstPerson){
         let davinky = scene.getObjectByName(character);
@@ -114,18 +115,12 @@ export function handleCameraAngle(scene, character, camera){
 
 // handle collisions with enemies
 export function handleUnitCollision(scene, character, sounds){
-    // First, create a new Raycaster and set its origin to the position of the unit that is moving.
-    // The direction of the raycaster should be the direction that the unit is moving in.
     let davinky = scene.getObjectByName(character);
-    var direction = new THREE.Vector3(davinky.position).normalize();
 
-    // // These could be other units, walls, or any other objects that you want the unit to be able to collide with.
     var potentialColliders = scene.enemies;
     var paintBuckets = scene.paintBuckets;
 
     let davinkyBB = new THREE.Box3().setFromObject(davinky);
-    // const dhelper = new THREE.Box3Helper( davinkyBB, 0xff9f90 );
-    // scene.add( dhelper );
     var enemiesBB = [];
     var paintBucketsBB = []
 
@@ -133,10 +128,7 @@ export function handleUnitCollision(scene, character, sounds){
     for (let i = 0; i < potentialColliders.length; i++) {
         let enemyBB = new THREE.Box3().setFromObject(potentialColliders[i])
         enemiesBB.push(enemyBB)
-        // const helper = new THREE.Box3Helper( enemyBB, 0xffff00 );
-        // scene.add( helper );
     }
-
     for (let i = 0; i < potentialColliders.length; i++) {
         if (davinkyBB.intersectsBox(enemiesBB[i])) {
             scene.remove(potentialColliders[i]);
@@ -153,7 +145,6 @@ export function handleUnitCollision(scene, character, sounds){
         let paintBB = new THREE.Box3().setFromObject(paintBuckets[i])
         paintBucketsBB.push(paintBB)
     }
-
     for (let i = 0; i < paintBuckets.length; i++) {
         if (davinkyBB.intersectsBox(paintBucketsBB[i])) {
             scene.remove(paintBuckets[i]);
@@ -166,14 +157,12 @@ export function handleUnitCollision(scene, character, sounds){
     }
 }
 
-
 // Moves enemies positions towards Davinky
 export function handleEnemyMovement(scene, character){
     let davinky = scene.getObjectByName(character);
     let enemies = scene.enemies;
-    // make enemies get faster as you get a higher score
-    let enemySpeed = 0.005*scene.score;
-    //if(enemySpeed>0.1) enemySpeed =0.09;
+    let enemySpeed = 0.005*scene.score;  // make enemies get faster as you get a higher score
+    //if(enemySpeed>0.1) enemySpeed =0.09; // set maximum speed
     for (var i = 0; i < enemies.length; i++) {
         var enemy = enemies[i];
     
@@ -205,22 +194,6 @@ export function handlePaintSpawning(scene){
         scene.spawnPaint(1);
     }
 }
-
-
-// removes enemies once they've reached davinky
-export function handleEnemyCulling(scene, character) {
-    let davinky = scene.getObjectByName(character);
-    let enemies = scene.enemies;
-    let numEnemies = enemies.length;
-    for (let i = 0; i < numEnemies; i++) {
-        let enemy = enemies[i];
-        if (enemy.position.clone().sub(davinky.position).length() < 1) {
-            scene.remove(enemy);
-            enemies.splice(i, 1);
-        }
-    }
-}
-
 
 export function handleCursor(scene, mouse, camera, cursor){
     let enemies = scene.enemies;

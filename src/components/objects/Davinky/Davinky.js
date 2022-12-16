@@ -9,8 +9,7 @@ class Davinky extends Group {
         super();
         this.name = 'davinky';
         this.addDavinky();
-        // parent.addToUpdateList(this);
-    }
+     }
 
     addDavinky() {
         

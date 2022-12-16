@@ -4,8 +4,6 @@ import { Land, Davinky, Enemy } from 'objects';
 import { BasicLights } from 'lights';
 import * as THREE from "three";
 
-// import { Enemy } from '../objects/Enemy';
-
 class SeedScene extends Scene {
     constructor() {
         // Call parent Scene() constructor
@@ -15,15 +13,13 @@ class SeedScene extends Scene {
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 0,
-            // color: '#00ff00',
             FirstPerson: false,
             updateList: [],
         };
 
         // Set background to a nice color
         this.background = new Color(0x7ec0ee);
-        // stores an array of all enemy objects
-        this.enemies = []; 
+        this.enemies = [];      // stores an array of all enemy objects
         this.paintBuckets = []
         this.score = 0;
         this.max = 0;
@@ -33,20 +29,11 @@ class SeedScene extends Scene {
         const davinky = new Davinky(this);
         const lights = new BasicLights();
 
-        let materialmodel = new THREE.MeshBasicMaterial({
-            color: 0xFF0000,
-        });
-
         this.add(land, davinky, lights);
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', 0, 5);
-        // this.state.gui.addColor(this.state, "color").onChange(function() {materialmodel.color.set(this.state.color)});
         this.state.gui.add(this.state, 'FirstPerson').onChange();
-    
   };
-
-
-
     
     // used to spawn enemies
     spawnEnemies(numEnemies){
@@ -62,6 +49,7 @@ class SeedScene extends Scene {
         }
     }
 
+    // used to spawn paintballs
     spawnPaint(numPaint){
     
         let geometry;
@@ -76,10 +64,8 @@ class SeedScene extends Scene {
             let x = Math.random() * 40 - 20;
             let z = Math.random() * 40 - 20;
             paintBucket.position.set(x, 0.7, z);
-            // update array of enemies
-            this.paintBuckets.push(paintBucket);
-            // add enemy to scene
-            this.add(paintBucket);
+            this.paintBuckets.push(paintBucket);  // update array of paintballs
+            this.add(paintBucket);  // add paintballs to scene
             }
     }
 
