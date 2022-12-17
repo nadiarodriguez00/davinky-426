@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Vector2, Vector3 } from "three";
 
-// maintan boolens to keep track if buffer period is active and if 
+// maintan booleans to keep track if buffer period is active and if 
 // game is muted
 let buffer = false;
 let mute = false;
